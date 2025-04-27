@@ -1,37 +1,24 @@
-function consultarImagem() {
-    const userInput = document.getElementById('inputUser').value.trim();
-    const avatarImage = document.getElementById('avatarImage');
+function buscarImagem() {
+    const username = document.getElementById('username').value.trim();
+    const avatarContainer = document.getElementById('avatar-container');
+    const avatar = document.getElementById('avatar');
 
-    if (userInput === '') {
-        alert("Digite um ID ou Nickname válido.");
-        return;
-    }
-
-    // Se for número é ID, se for texto é username
-    let id = userInput;
-
-    if (isNaN(userInput)) {
-        // Se não é número, buscar ID usando API
-        fetch(`https://users.roblox.com/v1/usernames/users`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ usernames: [userInput], excludeBannedUsers: true })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.data.length > 0) {
-                id = data.data[0].id;
-                avatarImage.src = `https://tr.rbxcdn.com/30DAY-AvatarHeadshot-${id}-Png/420/420/AvatarHeadshot/Png/noFilter`;
-            } else {
-                alert("Usuário não encontrado!");
-            }
-        })
-        .catch(error => {
-            console.error(error);
-            alert("Erro ao consultar usuário!");
-        });
+    if (username !== "") {
+        avatar.src = `https://tr.rbxcdn.com/30DAY-AvatarHeadshot-${username}-Png/420/420/AvatarHeadshot/Png/noFilter`;
+        avatarContainer.style.display = "block";
     } else {
-        // Se já for ID
-        avatarImage.src = `https://tr.rbxcdn.com/30DAY-AvatarHeadshot-${id}-Png/420/420/AvatarHeadshot/Png/noFilter`;
+        avatarContainer.style.display = "none";
     }
 }
+
+// Typewriter Effect
+const texto = "Consulta de Imagem Roblox - Tropa Egito";
+let i = 0;
+function typeWriter() {
+    if (i < texto.length) {
+        document.getElementById("typewriter").innerHTML += texto.charAt(i);
+        i++;
+        setTimeout(typeWriter, 100);
+    }
+}
+typeWriter();
