@@ -1,24 +1,13 @@
-function buscarImagem() {
-    const username = document.getElementById('username').value.trim();
-    const avatarContainer = document.getElementById('avatar-container');
-    const avatar = document.getElementById('avatar');
+function consultarImagem() {
+    const usernameInput = document.getElementById('usernameInput').value.trim();
+    const profileImage = document.getElementById('profileImage');
 
-    if (username !== "") {
-        avatar.src = `https://tr.rbxcdn.com/30DAY-AvatarHeadshot-${username}-Png/420/420/AvatarHeadshot/Png/noFilter`;
-        avatarContainer.style.display = "block";
-    } else {
-        avatarContainer.style.display = "none";
+    if (usernameInput === '') {
+        profileImage.style.display = 'none';
+        return;
     }
-}
 
-// Typewriter Effect
-const texto = "Consulta de Imagem Roblox - Tropa Egito";
-let i = 0;
-function typeWriter() {
-    if (i < texto.length) {
-        document.getElementById("typewriter").innerHTML += texto.charAt(i);
-        i++;
-        setTimeout(typeWriter, 100);
-    }
+    const imageUrl = `https://tr.rbxcdn.com/30DAY-AvatarHeadshot-${usernameInput}-Png/420/420/AvatarHeadshot/Png/noFilter`;
+    profileImage.src = imageUrl;
+    profileImage.style.display = 'block';
 }
-typeWriter();
