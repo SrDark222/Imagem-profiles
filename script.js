@@ -7,7 +7,22 @@ function consultarImagem() {
         return;
     }
 
-    const imageUrl = `https://tr.rbxcdn.com/30DAY-AvatarHeadshot-${usernameInput}-Png/420/420/AvatarHeadshot/Png/noFilter`;
-    profileImage.src = imageUrl;
-    profileImage.style.display = 'block';
+    const imageUrl = `https://thumbnails.roblox.com/v1/users/avatar-headshot?userIds=${usernameInput}&size=420x420&format=Png&isCircular=true`;
+
+    fetch(imageUrl)
+        .then(response => response.json())
+        .then(data => {
+            if (data.data && data.data[0] && data.data[0].imageUrl) {
+                profileImage.src = data.data[0].imageUrl;
+                profileImage.style.display = 'block';
+            } else {
+                alert('Usuário não encontrado!');
+                profileImage.style.display = 'none';
+            }
+        })
+        .catch(error => {
+            console.error(error);
+            alert('Erro ao buscar imagem!');
+            profileImage.style.display = 'none';
+        });
 }
